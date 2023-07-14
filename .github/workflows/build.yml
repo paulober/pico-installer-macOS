@@ -1,0 +1,20 @@
+name: Build Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build_pkg:
+    runs-on: macOS-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build Pico-SDK v1.5.0
+        run: ./build.sh 1.5.0 11.3.rel1
+      - name: Build Pico-SDK v1.5.1
+        run: ./build.sh 1.5.1 12.1.rel1
+      - uses: actions/upload-artifact@v3
+        with:
+          if-no-files-found: error
+          path: out/*.pkg

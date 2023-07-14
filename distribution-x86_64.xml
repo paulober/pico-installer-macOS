@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<installer-gui-script minSpecVersion="1">
+    <title>Raspberry Pi Pico SDK</title>
+    <license file="LICENSE.rtf" mime-type="text/rtf"/>
+    <options hostArchitectures="x86_64" customize="never" require-scripts="false" allow-external-scripts="false"/>
+    <domains enable_localSystem="true"/>
+    
+    <choices-outline>
+        <line choice="arm-toolchain-x86_64"/>
+        <line choice="pico-sdk"/>
+    </choices-outline>
+
+    <!-- choices -->
+    <choice id="arm-toolchain-x86_64" title="ARM Toolchain (x86_64)">
+        <pkg-ref id="arm-toolchain-x86_64.pkg"/>
+    </choice>
+    <choice id="pico-sdk" title="Pico SDK">
+        <pkg-ref id="org.raspberrypi.pico-sdk.pkg"/>
+    </choice>
+
+    <!-- pkg-refs -->
+    <pkg-ref id="arm-toolchain-x86_64.pkg" auth="Root">#arm-toolchain-x86_64.pkg</pkg-ref>
+    <pkg-ref id="arm-toolchain-x86_64.pkg">
+        <bundle-version/>
+    </pkg-ref>
+    <pkg-ref id="org.raspberrypi.pico-sdk.pkg" auth="Root" packageIdentifier="org.raspberrypi.pico-sdk">#org.raspberrypi.pico-sdk.pkg</pkg-ref>
+    <pkg-ref id="org.raspberrypi.pico-sdk.pkg">
+        <bundle-version/>
+    </pkg-ref>
+</installer-gui-script>

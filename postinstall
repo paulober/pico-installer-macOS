@@ -1,0 +1,46 @@
+#!/bin/zsh
+toolchain_path="<toolchain-path>"
+sdk_version="<sdk-version>"
+pico_sdk_path="<sdk-path>"
+
+# Set the JSON file path and directory
+json_file="$HOME/Library/Application Support/PicoSDK/sdks.json"
+json_dir=$(dirname "$json_file")
+
+# Create the directory if it does not exist
+mkdir -p "$json_dir"
+
+# Check if the JSON file does not exist
+if [ ! -f "$json_file" ]; then
+  # Create the initial JSON content
+  initial_json='{
+    "sdks" : { }
+}'
+
+  # Write the initial JSON content to the file
+  echo "$initial_json" > "$json_file"
+
+  echo "Created the JSON file: $json_file"
+fi
+
+# Set the SDK version, picoSDKPath, and toolchainPath
+# Modify the JSON file using Python
+sudo python3 -c "
+import json
+
+# Read the existing JSON content
+with open('$json_file', 'r') as file:
+    data = json.load(file)
+
+# Add the new SDK entry
+data['sdks']['$sdk_version'] = { 
+    'picoSDKPath': '$pico_sdk_path',
+    'toolchainPath': '$toolchain_path'
+}
+
+# Write the modified JSON content back to the file
+with open('$json_file', 'w') as file:
+    json.dump(data, file, indent=4)
+"
+
+echo "SDK entry added to the JSON file: $json_file"

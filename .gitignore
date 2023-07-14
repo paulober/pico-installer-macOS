@@ -1,0 +1,7 @@
+components/
+bundle/
+scripts/
+content/
+old/
+out/
+*.pkg
