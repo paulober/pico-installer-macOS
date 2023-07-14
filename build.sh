@@ -9,7 +9,7 @@ reset='\033[0m'
 
 print_help() {
     cat <<EOF
-Usage: ./build.sh pico_sdk_release_tag toolchain_tag
+Usage: ./build.sh <pico_sdk_release_tag> <toolchain_tag>
 
 To build and sign set APPLE_DEVELOPER_INSTALLER_ID environment variable 
 before.

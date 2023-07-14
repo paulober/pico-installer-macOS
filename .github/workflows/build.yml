@@ -11,8 +11,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build Pico-SDK v1.5.0
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: ./build.sh 1.5.0 11.3.rel1
       - name: Build Pico-SDK v1.5.1
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: ./build.sh 1.5.1 12.1.rel1
       - uses: actions/upload-artifact@v3
         with:
