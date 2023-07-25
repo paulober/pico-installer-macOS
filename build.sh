@@ -9,7 +9,7 @@ reset='\033[0m'
 
 print_help() {
     cat <<EOF
-Usage: ./build.sh <pico_sdk_release_tag> <toolchain_tag>
+Usage: ./build.sh <pico_sdk_release_tag> <toolchain_tag> [--verbose | -v]
 
 To build and sign set APPLE_DEVELOPER_INSTALLER_ID environment variable 
 before.
@@ -262,7 +262,10 @@ else
     "out/pico_sdk_${tag_name}_macOS_x86_64.pkg"
 fi
 
-echo_green "\r\nmacOS universal pkg built."
+if $verbose; then
+    echo "\r\n"
+fi
+echo_green "macOS arm64 & x86_64 pkgs built."
 echo_green "Done.\n"
 
 cleanup
