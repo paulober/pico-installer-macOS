@@ -1,8 +1,12 @@
-name: Build Package
+name: Build Packages
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - "main"
+  pull_request:
+    types:
+      - closed
 
 jobs:
   build_pkg:
