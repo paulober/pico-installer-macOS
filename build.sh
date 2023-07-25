@@ -77,8 +77,6 @@ cleanup() {
 
     echo_orange "Cleaning up..."
 
-    rm -rf bundle
-
     # if the script fails before moving it
     rm -rf pico-sdk
     rm -rf content
@@ -135,13 +133,13 @@ echo_green "Toolchain pkgs downloaded.\n"
 echo_orange "Downloading pico-sdk v$pico_sdk_tag..."
 
 # Store the original value of advice.detachedHead
-git_original_setting=$(git config --get advice.detachedHead)
+git_original_setting=$(git config --global --get advice.detachedHead)
 # Check if the value is empty
 if [ -z "$original_setting" ]; then
   original_setting="true"  # Set a default value if empty
 fi
 # Set advice.detachedHead to false for the clone operation
-git config advice.detachedHead "false"
+git config --global advice.detachedHead "false"
 
 if $verbose; then
     gh repo clone raspberrypi/pico-sdk pico-sdk -- --depth 1 --branch "$pico_sdk_tag"
@@ -157,8 +155,9 @@ else
     git submodule update --init -q
 fi
 cd ..
+
 # Revert advice.detachedHead to the original value
-git config advice.detachedHead "$git_original_setting"
+git config --global advice.detachedHead "$git_original_setting"
 
 echo_green "Pico-sdk downloaded.\n"
 
