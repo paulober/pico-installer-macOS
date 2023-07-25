@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # build not notarized packages
       - name: Build Pico-SDK v1.5.0
         env:
           GH_TOKEN: ${{ github.token }}
@@ -22,7 +24,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: ./build.sh 1.5.1 12.1.rel1
+
+      # upload not notarized artifacts
       - uses: actions/upload-artifact@v3
+        name: Upload pkg artifacts
         with:
           if-no-files-found: error
+          name: pico-sdk-installers-unnotarized.zip
           path: out/*.pkg
