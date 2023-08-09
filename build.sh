@@ -114,7 +114,7 @@ get_toolchain_download_url() {
     # moved to Azure blob storage
     #local url="https://developer.arm.com/-/media/Files/downloads/gnu/$toolchain_tag/binrel/arm-gnu-toolchain-$toolchain_tag-darwin-$1-arm-none-eabi.pkg"
     # new url
-    local url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/$toolchain_tag/binrel/arm-gnu-toolchain-$toolchain_tag-darwin-arm64-arm-none-eabi.pkg"
+    local url="https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu/$toolchain_tag/binrel/arm-gnu-toolchain-$toolchain_tag-darwin-$1-arm-none-eabi.pkg"
     echo "$url"
 }
 
