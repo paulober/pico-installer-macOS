@@ -19,11 +19,11 @@ jobs:
       - name: Build Pico-SDK v1.5.0
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./build.sh 1.5.0 11.3.rel1
+        run: ./build.sh 1.5.0 12.3.rel1
       - name: Build Pico-SDK v1.5.1
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./build.sh 1.5.1 12.1.rel1
+        run: ./build.sh 1.5.1 12.3.rel1
 
       # upload not notarized artifacts
       - uses: actions/upload-artifact@v3
