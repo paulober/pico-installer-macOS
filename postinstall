@@ -25,6 +25,7 @@ fi
 
 # Set the SDK version, picoSDKPath, and toolchainPath
 # Modify the JSON file using Python
+# maybe remove sudo
 sudo python3 -c "
 import json
 
@@ -44,3 +45,8 @@ with open('$json_file', 'w') as file:
 "
 
 echo "SDK entry added to the JSON file: $json_file"
+
+# Set the owner of the PicoSDK directory and contents to the invoking user
+# needed if the script creates the directory or json file
+INVOKING_USER=$(stat -f '%Su' $HOME)
+chown -R $INVOKING_USER $HOME/Library/Application\ Support/PicoSDK
