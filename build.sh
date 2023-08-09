@@ -196,7 +196,7 @@ if [ -n "$APPLE_DEVELOPER_INSTALLER_ID" ]; then
     pkgbuild \
     --root "content/" \
     --scripts "scripts/" \
-    --identifier "org.raspberrypi.pico-sdk" \
+    --identifier "org.raspberrypi.pico-sdk-${pico_sdk_tag//./_}" \
     --version "$pico_sdk_tag" \
     --install-location "/" \
     --timestamp \
@@ -209,7 +209,7 @@ else
     pkgbuild \
     --root "content/" \
     --scripts "scripts/" \
-    --identifier "org.raspberrypi.pico-sdk" \
+    --identifier "org.raspberrypi.pico-sdk-${pico_sdk_tag//./_}" \
     --version "$pico_sdk_tag" \
     --install-location "/" \
     "components/org.raspberrypi.pico-sdk.pkg"
