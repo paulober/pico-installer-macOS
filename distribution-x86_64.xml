@@ -2,9 +2,27 @@
 <installer-gui-script minSpecVersion="1">
     <title>Raspberry Pi Pico SDK</title>
     <license file="LICENSE.rtf" mime-type="text/rtf"/>
-    <options hostArchitectures="x86_64" customize="never" require-scripts="false" allow-external-scripts="false"/>
+    <options hostArchitectures="x86_64" customize="never" require-scripts="true" allow-external-scripts="false"/>
     <domains enable_localSystem="true"/>
-    
+    <installation-check script="installCheck();"/>
+    <script>
+    function installCheck() {
+        // this check is redundant, but it produces a user friendly error message
+        // compared to a disabled install button caused by allowed-os-versions
+        if (!(system.compareVersions(system.version.ProductVersion, '12') &gt;= 0)) {
+            my.result.title = 'Unable to install';
+            my.result.message = 'Pico SDK requires macOS 12 or later.';
+            my.result.type = 'Fatal';
+            return false;
+        }
+        return true;
+    }
+    </script>
+
+    <allowed-os-versions>
+        <os-version min="12.0" />
+    </allowed-os-versions>
+
     <choices-outline>
         <line choice="arm-toolchain-x86_64"/>
         <line choice="pico-sdk"/>
@@ -19,12 +37,6 @@
     </choice>
 
     <!-- pkg-refs -->
-    <pkg-ref id="arm-toolchain-x86_64.pkg" auth="Root">#arm-toolchain-x86_64.pkg</pkg-ref>
-    <pkg-ref id="arm-toolchain-x86_64.pkg">
-        <bundle-version/>
-    </pkg-ref>
-    <pkg-ref id="org.raspberrypi.pico-sdk.pkg" auth="Root" packageIdentifier="org.raspberrypi.pico-sdk">#org.raspberrypi.pico-sdk.pkg</pkg-ref>
-    <pkg-ref id="org.raspberrypi.pico-sdk.pkg">
-        <bundle-version/>
-    </pkg-ref>
+    <pkg-ref id="arm-toolchain-x86_64.pkg" auth="root">#arm-toolchain-x86_64.pkg</pkg-ref>
+    <pkg-ref id="org.raspberrypi.pico-sdk.pkg" auth="root">#org.raspberrypi.pico-sdk.pkg</pkg-ref>
 </installer-gui-script>

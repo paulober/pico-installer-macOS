@@ -159,7 +159,7 @@ cd ..
 # Revert advice.detachedHead to the original value
 git config --global advice.detachedHead "$git_original_setting"
 
-echo_green "Pico-sdk downloaded.\n"
+echo_green "Pico SDK downloaded.\n"
 
 #####################################
 # dynamically fill distribution.xml #
@@ -191,29 +191,24 @@ echo_orange "Building pico-sdk pkg..."
 mkdir -p "content$new_sdk_path_base"
 mv -f pico-sdk "content$new_sdk_path"
 
-# build pico sdk pkg
+PKGBUILD_SIGNING_ARGS=()
 if [ -n "$APPLE_DEVELOPER_INSTALLER_ID" ]; then
-    pkgbuild \
-    --root "content/" \
-    --scripts "scripts/" \
-    --identifier "org.raspberrypi.pico-sdk-${pico_sdk_tag//./_}" \
-    --version "$pico_sdk_tag" \
-    --install-location "/" \
-    --timestamp \
-    --sign "$APPLE_DEVELOPER_INSTALLER_ID" \
-    "components/org.raspberrypi.pico-sdk.pkg"
-
-else 
+    PKGBUILD_SIGNING_ARGS+=("--timestamp")
+    PKGBUILD_SIGNING_ARGS+=("--sign")
+    PKGBUILD_SIGNING_ARGS+=("${APPLE_DEVELOPER_INSTALLER_ID}")
+else
     echo_red "Skipping macOS pkg code-signing. Set APPLE_DEVELOPER_INSTALLER_ID to sign." >&2
+fi
 
-    pkgbuild \
+# build pico sdk pkg
+pkgbuild \
     --root "content/" \
     --scripts "scripts/" \
     --identifier "org.raspberrypi.pico-sdk-${pico_sdk_tag//./_}" \
     --version "$pico_sdk_tag" \
     --install-location "/" \
+    "${PRODUCTBUILD_ARGS[@]}" \
     "components/org.raspberrypi.pico-sdk.pkg"
-fi
 echo_green "Pico SDK pkg built.\n"
 
 ################################
@@ -223,43 +218,23 @@ echo_green "Pico SDK pkg built.\n"
 echo_orange "Building final macOS universal pkg..."
 mkdir -p out
 
-if [ -n "$APPLE_DEVELOPER_INSTALLER_ID" ]; then
-    productbuild \
+productbuild \
     --distribution "distribution.xml" \
     --package-path components/ \
     --resources "resources/" \
     --version "$tag_name" \
     --identifier org.raspberrypi.pico-sdk.bundle \
-    --timestamp \
-    --sign "$APPLE_DEVELOPER_INSTALLER_ID" \
+    "${PRODUCTBUILD_ARGS[@]}" \
     "out/pico_sdk_${tag_name}_macOS_arm64.pkg"
 
-    productbuild \
+productbuild \
     --distribution "distribution-x86_64.xml" \
     --package-path components/ \
     --resources "resources/" \
     --version "$tag_name" \
     --identifier org.raspberrypi.pico-sdk.bundle \
-    --timestamp \
-    --sign "$APPLE_DEVELOPER_INSTALLER_ID" \
+    "${PRODUCTBUILD_ARGS[@]}" \
     "out/pico_sdk_${tag_name}_macOS_x86_64.pkg"
-else
-    productbuild \
-    --distribution "distribution.xml" \
-    --package-path components/ \
-    --resources "resources/" \
-    --version "$tag_name" \
-    --identifier org.raspberrypi.pico-sdk.bundle \
-    "out/pico_sdk_${tag_name}_macOS_arm64.pkg"
-
-    productbuild \
-    --distribution "distribution-x86_64.xml" \
-    --package-path components/ \
-    --resources "resources/" \
-    --version "$tag_name" \
-    --identifier org.raspberrypi.pico-sdk.bundle \
-    "out/pico_sdk_${tag_name}_macOS_x86_64.pkg"
-fi
 
 if $verbose; then
     echo "\r\n"

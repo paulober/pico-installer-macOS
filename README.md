@@ -1,15 +1,15 @@
-# Pico-SDK + Toolchain installer for macOS
+# Pico SDK + Toolchain installer for macOS
 
 - Download the arm64 variant for Apple Silicon Macs or the x86_64 variant for Intel Macs.
 - Execute and follow install instructions.
-- Installer will automatically setup auto-detection of newly the installed sdk and toolchain for the Raspberry Pi Pico Visual Studio Code extension.
+- The installer will automatically setup a mechanism for auto-detection of the newly installed sdk and toolchain for other tools.
 
 ### Download
 
 | Supported Platform | Download (v1.5.1)           | Downloads (v1.5.0)          |
 | ------------------ | --------------------------- | --------------------------- |
-| macOS 11+ (arm64)  | [.pkg][v1_5_1-macos-arm64]  | [.pkg][v1_5_0-macos-arm64]  |
-| macOS 11+ (x64)    | [.pkg][v1_5_1-macos-x86_64] | [.pkg][v1_5_0-macos-x86_64] |
+| macOS 12+ (arm64)  | [.pkg][v1_5_1-macos-arm64]  | [.pkg][v1_5_0-macos-arm64]  |
+| macOS 12+ (x64)    | [.pkg][v1_5_1-macos-x86_64] | [.pkg][v1_5_0-macos-x86_64] |
 
 [v1_5_1-macos-arm64]: https://github.com/paulober/pico-installer-macOS/releases/download/macOS_installer_v1/pico_sdk_1.5.1_macOS_arm64.pkg
 [v1_5_1-macos-x86_64]: https://github.com/paulober/pico-installer-macOS/releases/download/macOS_installer_v1/pico_sdk_1.5.1_macOS_x86_64.pkg
@@ -19,6 +19,7 @@
 ### TODO
 
 - Maybe update bundle version to a custom version for the macOS installer revision (maybe only a suffix or prefix to the pico-sdk version).
+- Include Ninja and CMake in the installer.
 
 ## Manually building the pkg
 

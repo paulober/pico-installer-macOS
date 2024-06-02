@@ -13,20 +13,20 @@ jobs:
     runs-on: macOS-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # build not notarized packages
       - name: Build Pico-SDK v1.5.0
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./build.sh 1.5.0 12.3.rel1
+        run: ./build.sh 1.5.0 13.2.rel1
       - name: Build Pico-SDK v1.5.1
         env:
           GH_TOKEN: ${{ github.token }}
-        run: ./build.sh 1.5.1 12.3.rel1
+        run: ./build.sh 1.5.1 13.2.rel1
 
       # upload not notarized artifacts
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         name: Upload pkg artifacts
         with:
           if-no-files-found: error
