@@ -94,3 +94,4 @@ content/
 old/
 out/
 *.pkg
+pico-sdk/

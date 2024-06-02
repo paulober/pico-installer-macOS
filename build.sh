@@ -99,7 +99,7 @@ exec >&4
 
 trap cleanup EXIT
 trap int_cleanup INT
-trap err_cleanup ERR
+#trap err_cleanup ERR
 set -e
 
 # would allow to set a different pkg version than the pico-sdk release tag
@@ -207,7 +207,7 @@ pkgbuild \
     --identifier "org.raspberrypi.pico-sdk-${pico_sdk_tag//./_}" \
     --version "$pico_sdk_tag" \
     --install-location "/" \
-    "${PRODUCTBUILD_ARGS[@]}" \
+    "${PKGBUILD_SIGNING_ARGS[@]}" \
     "components/org.raspberrypi.pico-sdk.pkg"
 echo_green "Pico SDK pkg built.\n"
 
@@ -224,7 +224,7 @@ productbuild \
     --resources "resources/" \
     --version "$tag_name" \
     --identifier org.raspberrypi.pico-sdk.bundle \
-    "${PRODUCTBUILD_ARGS[@]}" \
+    "${PKGBUILD_SIGNING_ARGS[@]}" \
     "out/pico_sdk_${tag_name}_macOS_arm64.pkg"
 
 productbuild \
@@ -233,7 +233,7 @@ productbuild \
     --resources "resources/" \
     --version "$tag_name" \
     --identifier org.raspberrypi.pico-sdk.bundle \
-    "${PRODUCTBUILD_ARGS[@]}" \
+    "${PKGBUILD_SIGNING_ARGS[@]}" \
     "out/pico_sdk_${tag_name}_macOS_x86_64.pkg"
 
 if $verbose; then
